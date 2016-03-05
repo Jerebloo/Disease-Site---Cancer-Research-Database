@@ -57,11 +57,6 @@ var pech = <?php echo $dropnames; ?>;
                     <ul class="nav navbar-nav">
                         <li><a href="Home.html">Home</a></li>
                         <li class="active"><a href="Search.php">Search</a></li>
-                        <li><a href="Analysis.php">Analysis</a></li>
-                        <li><a href="miRNA-disease.php">miRNA-disease</a></li>
-                        <li><a href="miRNA-TF-Gene.php">miRNA-TF-Gene</a></li>
-                        <li><a>miRNA-Drug</a></li>
-                        <li><a>miRNA methylation</a></li>
                     </ul>
                 </div><!--/.nav-collapse -->
             
@@ -101,9 +96,20 @@ if ( ! empty($_POST['min'])){
     $name1 = $_POST['min'];
     echo $name1;
 }
+
+else
+{
+    $name1 = 0;
+}
+
 if ( ! empty($_POST['max'])){
     $name2 = $_POST['max'];
     echo $name2;
+}
+
+else
+{
+    $name2 =1;
 }
 
 ?>
