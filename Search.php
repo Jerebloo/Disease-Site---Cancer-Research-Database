@@ -51,7 +51,7 @@ var pech = <?php echo $dropnames; ?>;
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="#">Cancer Research Database</a>
+                    <a class="navbar-brand" href="#">MRNA Database</a>
                 </div>
                 <div id="navbar" class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
