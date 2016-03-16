@@ -64,9 +64,29 @@ var pech = <?php echo $dropnames; ?>;
         <!-- Main component for a primary marketing message or call to action -->
                 <div class="container">
                     <p>This page will allow you to search the database.</p>
-                    <select id="selector"> </select>
+                    
 
-    <div class="row">
+    
+
+    <script src="newGraph.js"></script>
+
+                </div>
+
+       <div>
+                <form ="" method='post'>
+           <select name ="action" id="selector"> </select> 
+           <p>min</p>
+           <input name="min" type="text" size="5" >
+           <p>max</p>
+           <input name="max" type="text" size="5" >
+                
+            <input type="submit" name="submit" value="Submit">
+
+            </form>
+                    
+            </div>
+
+            <div class="row">
       <div class="col-sm-3"></div>
       <div class="col-sm-6"> </div>
       <!--  style="display: none" -->
@@ -74,27 +94,10 @@ var pech = <?php echo $dropnames; ?>;
     </div>
     <div id="graph"></div>
 
-                </div>
-
-       <div>
-                <form ="" method='post'>
-                
-           <tr><td><textarea name="min" value="" rows = "1" cols="60"></textarea></td></tr>
-
-           <tr><td><textarea name="max" value="" rows = "1" cols="60"></textarea></td></tr>
-                
-                <input type="submit" name="submit" value="Submit">
-
-
-            </form>
-                    
-            </div>
-
 <?php
 
 if ( ! empty($_POST['min'])){
     $name1 = $_POST['min'];
-    echo $name1;
 }
 
 else
@@ -104,12 +107,16 @@ else
 
 if ( ! empty($_POST['max'])){
     $name2 = $_POST['max'];
-    echo $name2;
 }
 
 else
 {
     $name2 =1;
+}
+
+if( ! empty($_POST['action']))
+{
+   $name3= '"' . $_POST['action'] . '"';
 }
 
 ?>
@@ -141,25 +148,18 @@ else
                 option.textContent = name;
                 select.appendChild(option);
             };
+
         };
     </script>
 
  <script src="http://code.jquery.com/jquery-1.11.3.js"></script>
  <script src="https://rawgit.com/gka/d3-jetpack/master/d3-jetpack.js"></script>
-<script src="newGraph.js"></script>
 
-
- 
 <script>
-
-    $("#selector").change(function() {
-        // gets the miRNA selected using dropdown
         
+        var mirnaSelected = <?php echo $name3; ?>;
         var grabMin = <?php echo $name1; ?>;
         var grabMax = <?php echo $name2; ?>;
-
-        var mirnaSelected = $(this).val();
-        var phpJson = [];
       
         $.ajax({
             url: 'queries.php',
@@ -175,11 +175,16 @@ else
                // if data is not empty
                if(data){
                     $("#graph").empty();
+                    if (data.indexOf("null") >-1)
+                        {
+                            alert("No results for this query, please try another one");
+                        }
+                    else {    
                     createGraph(JSON.parse(data),"#graph");
-                    //$("#table").show();
+                         }
                 }
                 else {
-                    alert("No results for the selected miRNA. Select a different miRNA.");
+                    alert("No results for the selected disease. Select a different disease.");
                 }
             },
             error: function(jqXHR, textStatus, errorThrown) {
@@ -187,7 +192,8 @@ else
                 console.log(errorThrown);
             }
         }); // end of ajax request
-    }); // end of select change
+
+
 </script>
 
     <script src="bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
